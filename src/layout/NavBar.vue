@@ -11,15 +11,32 @@
             <b-navbar-brand class="navbar-brand">My Galleries</b-navbar-brand>
             <b-navbar-brand class="navbar-brand">Create New Gallery</b-navbar-brand>
             <b-navbar-brand class="navbar-brand">Register</b-navbar-brand>
-            <b-navbar-brand class="navbar-brand">Login</b-navbar-brand>
-            <b-navbar-brand class="navbar-brand">Logout</b-navbar-brand>
+            <b-navbar-brand class="navbar-brand">
+                 <router-link :to="{ name: 'login' }">
+                    Login
+                </router-link>
+            </b-navbar-brand>
+            <b-navbar-brand class="navbar-brand" @click="handleLogout">
+                Logout
+            </b-navbar-brand>
         </b-navbar>
     </div>
 </template>
 
 <script>
-export default {
+import { authService } from '@/services/Auth'
+import { mapActions } from 'vuex'
 
+export default {
+    methods: {
+        ...mapActions(['logout']),
+
+        handleLogout () {
+            this.logout()
+            console.log('logged out')
+            this.$router.push('/login')
+        }
+    }
 }
 </script>
 
