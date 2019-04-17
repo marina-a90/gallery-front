@@ -31,12 +31,17 @@ export default {
         ...mapActions(['login']),
 
         async handleLogin () {
-            await this.login({
+            try {
+                await this.login({
                 email: this.email,
                 password: this.password
-            })
-            console.log('logged in')
-            this.$router.push('/contacts')
+                })
+                console.log('logged in')
+                this.$router.push({ name: 'galleries' })
+            } 
+            catch (e) {
+                console.log(e)
+            }
         }
     }
 }

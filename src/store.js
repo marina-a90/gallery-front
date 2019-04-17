@@ -21,6 +21,10 @@ export const store = new Vuex.Store({
 
         logout (context) {
             authService.logout()
-        }
+        },
+
+        async register (context, credentials) {
+            await authService.register(credentials)
+        }, 
     }
 });

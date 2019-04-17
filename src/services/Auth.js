@@ -10,6 +10,19 @@ class Auth {
         }
     }
 
+    async register (input) {
+        try {
+            const response = await axios.post('http://localhost:8000/api/auth/register', input);
+            console.log(response)
+            const token = response.data.access_token
+            localStorage.setItem('token', token)
+            this.setAuthorizationHeader()
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
     async login (credentials) {
         try {
             const response = await axios.post('http://localhost:8000/api/auth/login', credentials);

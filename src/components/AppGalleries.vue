@@ -22,7 +22,6 @@ export default {
     async created() {
         try {
             const response = await galleriesService.getAll();
-            console.log(response);
             this.galleries = response.data;
         } catch (error) {
             console.log(error);

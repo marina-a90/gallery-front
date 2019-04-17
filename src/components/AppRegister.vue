@@ -9,7 +9,7 @@
             </ul>
         </div>
 
-        <form @submit.prevent="checkForm">
+        <form @submit.prevent="registerHandle">
             <div class="mb-3">
                 <label for="first_name">First name:</label><br>
                 <input 
@@ -79,6 +79,9 @@
 </template>
 
 <script>
+import { authService } from '@/services/Auth'
+import { mapActions } from 'vuex'
+
 export default {
     data () {
         return {
@@ -89,12 +92,30 @@ export default {
                 email: null,
                 password: null,
                 password_confirm: null,
-                accepted_terms: null
+                accepted_terms: false
             }
         }
     },
 
     methods:{
+        ...mapActions(['register']),
+
+        async registerHandle () {
+            try {
+                this.checkForm();
+                if (this.errors.length) {
+                    console.log('greske');
+                    return;
+                }
+                await this.register(this.input)
+                console.log('registered')
+                this.$router.push({ name: 'galleries' });
+            }
+            catch (e) {
+                console.log(e);
+            }
+        },
+
         checkForm (error) {
             this.errors.splice(0);
             console.log(this.errors);
