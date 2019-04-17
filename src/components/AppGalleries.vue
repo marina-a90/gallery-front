@@ -3,7 +3,11 @@
         <h1>All Galleries</h1>
         <ul>
             <li v-for="gallery in galleries" :key="gallery.id">
-                {{ gallery }}
+                {{ gallery.title }}
+                
+                <div v-for="image in gallery.images" :key="image.id">                    
+                    <img :src=image.imageURL>
+                </div>
             </li>
         </ul>
     </div>
@@ -22,6 +26,7 @@ export default {
     async created() {
         try {
             const response = await galleriesService.getAll();
+            console.log(response);
             this.galleries = response.data;
         } catch (error) {
             console.log(error);
