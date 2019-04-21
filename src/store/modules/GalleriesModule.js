@@ -15,7 +15,11 @@ export const GalleriesModule = {
     mutations: {
         setGalleries (state, gallery) {
             state.galleries = gallery;
-        }
+        }, 
+
+        addNewGallery(state, gallery){
+            state.galleries.push(gallery)
+        },
     }, 
 
     actions: {
@@ -35,7 +39,12 @@ export const GalleriesModule = {
             const response = await galleriesService.getMyGalleries()
             console.log(response)
             state.commit('setGalleries', response)
-        }
+        }, 
+
+        async makeNewGallery(context, gallery){
+            const response = await galleriesService.post(gallery)
+            context.commit('addNewGallery', response.data)
+        },
     }
 
 }

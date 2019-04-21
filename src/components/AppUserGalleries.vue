@@ -1,10 +1,13 @@
 <template>
     <div class="container">
-        <h1 class="mb-3">User Galleries</h1>
-        <!-- <h1>User: {{ galleries[0].users[0].first_name }} {{ galleries[0].user[0].last_name }}</h1> -->
 
-        searchInput : {{ searchInput }}
+        <!-- searchInput : {{ searchInput }} -->
         <div v-if="galleries.length">
+            <h1 class="mb-3">
+                Galleries by: {{ galleries[0].user ? 
+                galleries[0].user.first_name + ' ' + 
+                galleries[0].user.last_name : '' }}
+            </h1>
 
             <form @submit.prevent="onSearchInput(searchInput)">
                 <input placeholder="Search" v-model="searchInput">

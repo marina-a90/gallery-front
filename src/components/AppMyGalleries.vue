@@ -2,9 +2,9 @@
     <div class="container">
 
         <h1 class="mb-3">My Galleries</h1>
-        <h3>galleries from user {{ getUserID }}</h3>
+        <!-- <h3>galleries from user {{ getUserID }}</h3> -->
 
-        searchInput : {{ searchInput }}
+        <!-- searchInput : {{ searchInput }} -->
         
         <div v-if="galleries.length">
 
@@ -15,9 +15,12 @@
 
                 <ul>
                     <li v-for="gallery in galleries" :key="gallery.index">
-                        <div>gallery user id {{ gallery.user_id }}</div>
-
-                            <h4>{{ gallery.title }}</h4>
+                        <!-- <div>gallery user id {{ gallery.user_id }}</div> -->
+                            <h4>
+                                <router-link :to="{ name: 'single-gallery', params: { id: gallery.id }}">
+                                    {{ gallery.title }}
+                                </router-link>
+                            </h4>
                             <div><b>Creted by: </b> {{ gallery.user.first_name }} {{ gallery.user.last_name }}</div>
                             <div><b>Creted at: </b>{{ gallery.created_at }}</div>
                             <img :src="gallery.images[0] ? gallery.images[0].imageURL : ''"> 
@@ -64,8 +67,14 @@ export default {
             console.log('search')
             this.page = 1
             this.searchInput = searchInput
-            galleriesService.getMyGalleries(this.id, this.page, this.searchInput)
+
+    console.log('neki string');
+
+    console.log(searchInput);
+
+            galleriesService.getMyGalleries(localStorage.getItem('user_id'), this.page, this.searchInput)
                 .then(galleries => {
+                    // this.id = localStorage.getItem('user_id')
                     this.galleries = galleries.data
                     this.last_page = galleries.last_page
                 }
@@ -84,13 +93,11 @@ export default {
         }
     },
 
-    // currently gets all
-
     beforeRouteEnter (to, from, next) {
         next(vm => {
             vm.id = localStorage.getItem('user_id')
             console.log(vm.id)
-            galleriesService.getMyGalleries(vm.page, vm.term, vm.id)
+            galleriesService.getMyGalleries(vm.id, vm.page, vm.term)
                 .then(galleries => {
                     vm.galleries = galleries.data
                     vm.last_page = galleries.last_page

@@ -3,9 +3,12 @@
         <h1 class="mb-3">{{ gallery.title }}</h1>
         <div><b>Created by: {{ gallery.user ? gallery.user.first_name + ' ' + gallery.user.last_name : '' }}</b></div>
         <div class="mb-3"><i>Created at: {{ gallery.created_at }}</i></div>
-        <div>{{ gallery.description }}</div>
+        <div v-if="gallery.description">{{ gallery.description }}</div>
         <div v-for="image in gallery.images" :key="image.id">
-              <img :src="image.imageURL" alt="image">
+            <a href="image.imageURL" target="blank"> 
+                <!-- doraditi -->
+                <img :src="image.imageURL" alt="image">
+            </a>
         </div>
 
         <div class="comments container mt-3">

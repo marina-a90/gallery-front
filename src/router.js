@@ -27,7 +27,7 @@ const routes = [
     { path: '/gallery/:id', name: 'single-gallery', component: SingleGallery 
     //, meta: { requiresAuth: true } 
     },
-    { path: '/add-gallery', name: 'add-gallery', component: AddGallery 
+    { path: '/create', name: 'add-gallery', component: AddGallery 
     //, meta: { requiresAuth: true } 
     }, 
     { path: '/my-galleries/', name: 'my-galleries', component: MyGalleries 

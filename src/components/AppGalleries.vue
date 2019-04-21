@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h1 class="mb-3">All Galleries</h1>
-        searchInput : {{ searchInput }}
+        <!-- searchInput : {{ searchInput }} -->
         <div v-if="galleries.length">
 
             <form @submit.prevent="onSearchInput(searchInput)">
@@ -16,7 +16,12 @@
                             {{ gallery.title }}
                         </router-link>
                     </h4>
-                    <div><b>Creted by: </b>{{ gallery.user.first_name }} {{ gallery.user.last_name }}</div>
+                    <div>
+                        <b>Creted by: </b>
+                        <router-link :to="{ name: 'user-galleries', params: { id: gallery.user_id }}">
+                            {{ gallery.user.first_name }} {{ gallery.user.last_name }}
+                        </router-link>
+                    </div>
                     <div><b>Creted at: </b>{{ gallery.created_at }}</div>
                     <img :src="gallery.images[0] ? gallery.images[0].imageURL : ''"> 
                 </li>

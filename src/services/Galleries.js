@@ -39,7 +39,7 @@ class GalleriesService {
     return axios.delete(`galleries/${id}`);
   }
 
-  getMyGalleries(page = 1, term = "", user_id) {
+  getMyGalleries(user_id, page = 1, term = "") {
     return axios.get(`my-galleries`, 
       {
         params: {
