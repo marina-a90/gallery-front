@@ -1,30 +1,20 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import { authService } from '@/services/Auth'
+import { authService } from '@/services/Auth';
 
-Vue.use(Vuex)
-
-export const store = new Vuex.Store({
-    state: {
-        
-    },
-    getters: {
-        
-    },
-    mutations: {
-        
-    }, 
+export const AuthModule = {
     actions: {
         async login (context, credentials) {
             await authService.login(credentials)
+            console.log('store login')
         }, 
 
         logout (context) {
             authService.logout()
+            console.log('store logout')
         },
 
         async register (context, credentials) {
             await authService.register(credentials)
-        }, 
+            console.log('store register')
+        }
     }
-});
+}

@@ -2,12 +2,12 @@
     <div class="container">
         <h1>Registration</h1>
 
-        <div v-if="errors.length" class="alert-danger mt-3">
+        <!-- <div v-if="errors.length" class="alert-danger mt-3">
             <b>Please correct the following error(s):</b>
             <ul>
                 <li v-for="(error, index) in errors" :key="error[index]">{{ error }}</li>
             </ul>
-        </div>
+        </div> -->
 
         <form @submit.prevent="registerHandle">
             <div class="mb-3">
@@ -51,11 +51,11 @@
                 />
             </div>
             <div class="mb-3">
-                <label for="password_confirm">Confirm password:</label><br>
+                <label for="password_confirmation">Confirm password:</label><br>
                 <input 
                     type="password" 
-                    name="password_confirm" 
-                    v-model="input.password_confirm"
+                    name="password_confirmation" 
+                    v-model="input.password_confirmation"
                     required="required"
                     minlength="8"
                     placeholder="Confirm password"
@@ -80,7 +80,7 @@
 
 <script>
 import { authService } from '@/services/Auth'
-import { mapActions } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
     data () {
@@ -91,28 +91,43 @@ export default {
                 last_name: null,
                 email: null,
                 password: null,
-                password_confirm: null,
+                password_confirmation: null,
                 accepted_terms: false
             }
         }
     },
 
     methods:{
-        ...mapActions(['register']),
+        ...mapActions([
+            'register', 
+            'login', 
+            'signedInStatusChange']),
+
+        ...mapMutations(['isSignedInChange']),
 
         async registerHandle () {
             try {
-                this.checkForm();
-                if (this.errors.length) {
-                    console.log('greske');
-                    return;
-                }
                 await this.register(this.input)
+                // this.checkForm();
+                // if (this.errors.length) {
+                //     console.log('greske');
+                //     return;
+                // }
                 console.log('registered')
-                this.$router.push({ name: 'galleries' });
+                console.log('vue registered')
+                this.login({email: this.input.email, password: this.input.password})
+                this.signedInStatusChange() 
+                this.$router.push("{ name: 'galleries' }");
             }
             catch (e) {
-                console.log(e);
+                console.log("AJOJ");
+                // console.log(e.response);
+                // console.log(e.response.data.message);
+                // alert(e.response.data.message);
+                alert('ne')
+                // location.reload();
+                localStorage.removeItem('token')
+                return;
             }
         },
 

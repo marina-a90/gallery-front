@@ -2,30 +2,44 @@
     <div class="mb-3">
         <h1>Gallery</h1>
 
+        signed in: {{ isSignedInCheck }}, 
+
+        User id: {{ getUserID }}
+
         <b-navbar toggleable="lg" type="dark" variant="info">
+
             <b-navbar-brand class="navbar-brand">
                 <router-link :to="{ name: 'galleries' }">
                     All Galleries
                 </router-link>
             </b-navbar-brand>
-            <b-navbar-brand class="navbar-brand">My Galleries</b-navbar-brand>
-            <b-navbar-brand class="navbar-brand">
+
+            <b-navbar-brand class="navbar-brand" v-if="isSignedInCheck">
+                <router-link :to="{ name: 'my-galleries' }">
+                    My Galleries
+                </router-link>
+            </b-navbar-brand>
+
+            <b-navbar-brand class="navbar-brand" v-if="isSignedInCheck">
                 <router-link :to="{ name: 'add-gallery' }">
                     Create New Gallery
                 </router-link>
             </b-navbar-brand>
-            <b-navbar-brand class="navbar-brand">
+
+            <b-navbar-brand class="navbar-brand" v-if="!isSignedInCheck">
                 <router-link :to="{ name: 'register' }">
                     Register
                 </router-link>
             </b-navbar-brand>
-            <b-navbar-brand class="navbar-brand">
-                 <router-link :to="{ name: 'login' }">
+
+            <b-navbar-brand class="navbar-brand" v-if="!isSignedInCheck">
+                <router-link :to="{ name: 'login' }">
                     Login
                 </router-link>
             </b-navbar-brand>
-            <b-navbar-brand class="navbar-brand" @click="handleLogout">
-                Logout
+
+            <b-navbar-brand class="navbar-brand" @click="handleLogout" v-if="isSignedInCheck">
+                <a href="#">Logout</a>
             </b-navbar-brand>
         </b-navbar>
     </div>
@@ -33,17 +47,25 @@
 
 <script>
 import { authService } from '@/services/Auth'
-import { mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions(['logout']),
+        ...mapActions(['logout', 'signedInStatusChange']),
+
+        ...mapMutations(['isSignedInChange']),
 
         handleLogout () {
             this.logout()
+            this.signedInStatusChange()
             console.log('logged out')
-            this.$router.push('/login')
+            localStorage.clear()
+            this.$router.push({ name: 'login' })
         }
+    }, 
+
+    computed: {
+        ...mapGetters(['isSignedInCheck', 'getUserID'])
     }
 }
 </script>
