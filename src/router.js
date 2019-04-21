@@ -1,14 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import Galleries from './components/AppGalleries'
-// import Login from './components/AppLogin'
-// import Register from './components/AppRegister'
-// import SingleGallery from './components/AppSingleGallery'
-// import AddGallery from './components/AppAddGallery'
-// import MyGalleries from './components/AppMyGalleries'
-// import UserGalleries from './components/AppUserGalleries'
-
 const Galleries = () => import('./components/AppGalleries')
 const Login = () => import('./components/AppLogin')
 const Register = () => import('./components/AppRegister')
@@ -16,6 +8,7 @@ const SingleGallery = () => import('./components/AppSingleGallery')
 const AddGallery = () => import('./components/AppAddGallery')
 const MyGalleries = () => import('./components/AppMyGalleries')
 const UserGalleries = () => import('./components/AppUserGalleries')
+const Edit = () => import('./components/AppEdit')
 
 Vue.use(VueRouter)
 
@@ -35,6 +28,9 @@ const routes = [
     }, 
     { path: '/user-galleries/:id', name: 'user-galleries', component: UserGalleries 
     //, meta: { requiresAuth: true } 
+    },
+    { path: '/edit/:id', name: 'edit', component: Edit
+    // //, meta: { requiresAuth: true } 
     }
 ]
 

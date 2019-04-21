@@ -21,7 +21,12 @@
                                     {{ gallery.title }}
                                 </router-link>
                             </h4>
-                            <div><b>Creted by: </b> {{ gallery.user.first_name }} {{ gallery.user.last_name }}</div>
+                            <div>
+                                <b>Creted by: </b>
+                                <router-link :to="{ name: 'user-galleries', params: { id: gallery.user_id }}">
+                                    {{ gallery.user.first_name }} {{ gallery.user.last_name }}
+                                </router-link>
+                            </div>
                             <div><b>Creted at: </b>{{ gallery.created_at }}</div>
                             <img :src="gallery.images[0] ? gallery.images[0].imageURL : ''"> 
                     </li>
@@ -72,7 +77,7 @@ export default {
 
     console.log(searchInput);
 
-            galleriesService.getMyGalleries(localStorage.getItem('user_id'), this.page, this.searchInput)
+        galleriesService.getMyGalleries(localStorage.getItem('user_id'), this.page, this.searchInput)
                 .then(galleries => {
                     // this.id = localStorage.getItem('user_id')
                     this.galleries = galleries.data

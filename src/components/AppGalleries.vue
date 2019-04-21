@@ -69,8 +69,8 @@ export default {
 
         loadMoreGalleries () {
             console.log('load more')
-            this.currentPage++
-            galleriesService.getAll(this.currentPage, this.searchInput)
+            this.page++
+            galleriesService.getAll(this.page, this.searchInput)
                 .then(galleries => {     
                     this.galleries.push(...galleries.data)
                     this.last_page = galleries.last_page

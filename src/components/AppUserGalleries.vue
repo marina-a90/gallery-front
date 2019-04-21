@@ -38,7 +38,7 @@
 
 <script>
 import { store } from '@/store/store'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { galleriesService } from '@/services/Galleries'
 import Paginator from '@/layout/Paginator'
 
