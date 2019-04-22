@@ -44,7 +44,7 @@
                     name="imageURL"
                     type="url"
                     placeholder="Image URL"
-                    pattern="https?://.+(png|jpg|jpeg)"
+                    pattern="regex|http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png"
                     required
                     ><br>
 

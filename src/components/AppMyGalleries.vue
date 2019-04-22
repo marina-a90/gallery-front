@@ -72,12 +72,7 @@ export default {
             console.log('search')
             this.page = 1
             this.searchInput = searchInput
-
-    console.log('neki string');
-
-    console.log(searchInput);
-
-        galleriesService.getMyGalleries(localStorage.getItem('user_id'), this.page, this.searchInput)
+            galleriesService.getMyGalleries(localStorage.getItem('user_id'), this.page, this.searchInput)
                 .then(galleries => {
                     // this.id = localStorage.getItem('user_id')
                     this.galleries = galleries.data

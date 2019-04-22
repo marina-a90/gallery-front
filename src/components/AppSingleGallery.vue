@@ -43,7 +43,7 @@
                     <div><b>Created by: {{ comment.user.first_name }} {{ comment.user.last_name }} at {{ comment.created_at }}</b></div>
                     <p>{{ comment.description }}</p>
                     <div>
-                        <button v-if="userCreatedCommentCheck" type="submit" @click="OnDeleteComment(comment.id)">
+                        <button type="button" v-if="getUserID == comment.user_id" @click="OnDeleteComment(comment.id, index)">
                             Delete
                         </button>
                     </div>
@@ -75,7 +75,7 @@
 <script>
 import { galleriesService } from '@/services/Galleries'
 import { commentsService } from '@/services/Comments'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
     data() {
@@ -111,14 +111,22 @@ export default {
     methods: {
         ...mapActions(['fetchUserID', 'makeNewComment']), 
 
+        ...mapMutations(['addNewComment']),
+
         leadToEdit () {
             this.$router.push(`/edit/${this.gallery.id}`);
         }, 
 
-        addComment () {
-            let comm = this.makeNewComment(this.comment)
-            this.gallery.comments.unshift(comm)
-            // location.reload()
+        async addComment () {
+            try {
+                await this.makeNewComment(this.comment)
+                this.gallery.comments.unshift(this.comment)
+                console.log('dodajem komentar')
+            }
+            catch (e) {
+                console.log(e)
+                alert('Not able to create the comment.')
+            }
         }, 
 
         onSlideStart(slide) {
@@ -134,15 +142,24 @@ export default {
             win.focus();
         },
 
-        async OnDeleteComment (id) {
-            await commentsService.delete(id)
-            // this.gallery.comments.splice(this.index, 1)
-            location.reload()
+        async OnDeleteComment (id, index) {
+            let confirmation = confirm('Are you sure you want to delete this comment?') 
+            if (confirmation) {
+                await commentsService.delete(id)
+                this.gallery.comments.splice(index, 1)
+            }
+            
+            return;
         },
 
-        deleteGallery (id){
-            galleriesService.delete(id)
-            this.$router.push('/my-galleries')
+        async deleteGallery (id){
+            let confirmation = confirm('Are you sure you want to delete this gallery?')
+            if (confirmation) {
+                await galleriesService.delete(id)
+                this.$router.push('/my-galleries')
+            }
+
+            return;
         }
     },
 

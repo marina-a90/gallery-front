@@ -20,8 +20,8 @@ export const CommentsModule = {
 
     actions: {
         async makeNewComment(context, newComment){
-            const response = await commentsService.post(newComment)
-            // context.commit('addNewComment', response.data)
+            // const response = await commentsService.post(newComment)
+            context.commit('addNewComment', newComment)
         }
     }
 
