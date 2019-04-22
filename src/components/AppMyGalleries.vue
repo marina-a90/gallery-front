@@ -2,10 +2,6 @@
     <div class="container">
 
         <h1 class="mb-3">My Galleries</h1>
-        <!-- <h3>galleries from user {{ getUserID }}</h3> -->
-
-        <!-- searchInput : {{ searchInput }} -->
-        
         <div v-if="galleries.length">
 
                 <form @submit.prevent="onSearchInput(searchInput)">
@@ -15,7 +11,6 @@
 
                 <ul>
                     <li v-for="gallery in galleries" :key="gallery.index">
-                        <!-- <div>gallery user id {{ gallery.user_id }}</div> -->
                             <h4>
                                 <router-link :to="{ name: 'single-gallery', params: { id: gallery.id }}">
                                     {{ gallery.title }}
@@ -69,12 +64,10 @@ export default {
         ...mapActions(['fetchUserID', 'fetchMyGalleries']), 
 
         onSearchInput (searchInput) {
-            console.log('search')
             this.page = 1
             this.searchInput = searchInput
             galleriesService.getMyGalleries(localStorage.getItem('user_id'), this.page, this.searchInput)
                 .then(galleries => {
-                    // this.id = localStorage.getItem('user_id')
                     this.galleries = galleries.data
                     this.last_page = galleries.last_page
                 }
@@ -82,7 +75,6 @@ export default {
         },
 
         loadMoreGalleries () {
-            console.log('load more')
             this.currentPage++
             galleriesService.getMyGalleries(this.id, this.currentPage, this.searchInput)
                 .then(galleries => {     
@@ -96,7 +88,6 @@ export default {
     beforeRouteEnter (to, from, next) {
         next(vm => {
             vm.id = localStorage.getItem('user_id')
-            console.log(vm.id)
             galleriesService.getMyGalleries(vm.id, vm.page, vm.term)
                 .then(galleries => {
                     vm.galleries = galleries.data
@@ -106,9 +97,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['getUserID', 
-        // 'galleries'
-        ]), 
+        ...mapGetters(['getUserID']), 
 
         filteredGalleriesbyUserID () {
             let filtered = this.galleries.filter(g => g.user_id === 1);

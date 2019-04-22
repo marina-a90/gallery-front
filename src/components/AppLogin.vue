@@ -38,24 +38,15 @@ export default {
                     email: this.email,
                     password: this.password
                 })
-                console.log('logged in')
-                console.log('vue login')
                 this.signedInStatusChange(),
-
-                //
                 this.fetchUserID()
-                console.log('fetched user id from login')
-                console.log(this.fetchUserID())
-
                 this.$router.push('/galleries')
             } 
             catch (e) {
                 const error = JSON.parse(e.request.response)
                 this.error = error.error
                 alert(this.error)
-                console.log('login greska')
                 localStorage.removeItem('token')
-                // location.reload();
                 return;
             }
         }

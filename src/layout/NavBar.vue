@@ -53,7 +53,6 @@ export default {
         handleLogout () {
             this.logout()
             this.signedInStatusChange()
-            console.log('logged out')
             localStorage.clear()
             this.$router.push({ name: 'login' })
         }

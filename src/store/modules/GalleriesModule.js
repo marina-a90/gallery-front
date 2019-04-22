@@ -27,7 +27,6 @@ export const GalleriesModule = {
             galleriesService.getAll()
                 .then(response => {
                     let galleries = response.data
-                    console.log(galleries)
                     return state.commit('setGalleries', galleries);
                 })
                 .catch(err => {
@@ -37,7 +36,6 @@ export const GalleriesModule = {
         
         async fetchMyGalleries (state) {
             const response = await galleriesService.getMyGalleries()
-            console.log(response)
             state.commit('setGalleries', response)
         }, 
 

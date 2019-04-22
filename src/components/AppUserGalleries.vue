@@ -1,7 +1,5 @@
 <template>
     <div class="container">
-
-        <!-- searchInput : {{ searchInput }} -->
         <div v-if="galleries.length">
             <h1 class="mb-3">
                 Galleries by: {{ galleries[0].user ? 
@@ -61,7 +59,6 @@ export default {
         ...mapActions(['fetchUserID']),
 
         onSearchInput (searchInput) {
-            console.log('search')
             this.page = 1
             this.searchInput = searchInput
             galleriesService.getUserGalleries(this.id, this.page, this.searchInput)
@@ -73,7 +70,6 @@ export default {
         },
 
         loadMoreGalleries () {
-            console.log('load more')
             this.currentPage++
             galleriesService.getMyGalleries(this.id, this.currentPage, this.searchInput)
                 .then(galleries => {     
@@ -87,17 +83,11 @@ export default {
     beforeRouteEnter (to, from, next) {
         next(vm => {
             vm.id = Number(to.params.id)
-            console.log('pre funkc id')
-            console.log(vm.id)
             galleriesService.getUserGalleries(vm.id, vm.page, vm.searchInput)
                 .then(galleries => {
                     vm.id = Number(to.params.id)
-                    console.log(vm.id)
-                    console.log(galleries)
                     vm.galleries = galleries.data
-                    console.log(galleries.data)
                     vm.last_page = galleries.last_page
-                    console.log(galleries.last_page)
                 })
         })
     },

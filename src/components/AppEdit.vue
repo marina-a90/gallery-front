@@ -87,23 +87,17 @@ export default {
     created() {
         this.$route.params.id && galleriesService.get(this.$route.params.id)
         .then((response) => {
-            console.log(response.data)
             this.gallery = response.data;
         })
     },
 
     methods: {
         editGallery () {
-            console.log('tu sam')
             galleriesService.update(this.$route.params.id, this.gallery);
-            console.log('tu sam')
-            console.log(this.gallery)
-            console.log(this.galleries)
             this.$router.push("/my-galleries");
         }, 
 
         addImage () {
-            console.log(this.gallery)
             this.gallery.images.push(this.newImage);
         }, 
 
@@ -143,7 +137,6 @@ export default {
     async created() {
         try {
             const response = await galleriesService.show(this.$route.params.id);
-            console.log(response.data);
             this.gallery = response.data;
             let arr = []
             for (let i=0; i<response.data.images.length; i++) {
@@ -151,10 +144,6 @@ export default {
                 arr.push(rImg.imageURL)
             }
             this.gallery.images = arr;
-            console.log('get u id')
-            console.log(this.getUserID)
-            console.log('g u id')
-            console.log(this.gallery.user_id)
         } catch (error) {
             console.log(error);
         }

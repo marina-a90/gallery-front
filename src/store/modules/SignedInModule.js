@@ -29,13 +29,11 @@ export const SignedInModule = {
     actions: {
         signedInStatusChange(context) {
             const currentStatus = authService.isAuthenticated()
-            console.log(currentStatus)
             context.commit("isSignedInChange", currentStatus);
         },
 
         fetchUserID (context) {
             const currentUserID = authService.getUserIDFromLS()
-            console.log(currentUserID)
             context.commit('setUserID', currentUserID);
         }
     }

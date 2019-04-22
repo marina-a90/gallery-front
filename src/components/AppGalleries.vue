@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <h1 class="mb-3">All Galleries</h1>
-        <!-- searchInput : {{ searchInput }} -->
         <div v-if="galleries.length">
 
             <form @submit.prevent="onSearchInput(searchInput)">
@@ -56,7 +55,6 @@ export default {
 
     methods: {
         onSearchInput (searchInput) {
-            console.log('search')
             this.page = 1
             this.searchInput = searchInput
             galleriesService.getAll(this.page, this.searchInput)
@@ -68,7 +66,6 @@ export default {
         },
 
         loadMoreGalleries () {
-            console.log('load more')
             this.page++
             galleriesService.getAll(this.page, this.searchInput)
                 .then(galleries => {     
@@ -82,25 +79,11 @@ export default {
     beforeRouteEnter (to, from, next) {
         galleriesService.getAll()
             .then(galleries => next( vm => {
-                console.log(vm)
                 vm.galleries = galleries.data
-                console.log(galleries.data)
                 vm.last_page = galleries.last_page
-                console.log(galleries.last_page)
                 }
             )
         );
-    }, 
-
-    // async created() {
-    //     try {
-    //         const response = await galleriesService.getAll()
-    //         console.log(response.data)
-    //         this.galleries = response.data;
-    //         console.log(this.galleries.data)
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    } 
 }
 </script>

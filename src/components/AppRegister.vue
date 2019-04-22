@@ -110,19 +110,13 @@ export default {
                 await this.register(this.input)
                 this.checkForm();
                 if (this.errors.length) {
-                    console.log('greske');
                     return;
                 }
-                console.log('registered')
-                console.log('vue registered')
                 this.login({email: this.input.email, password: this.input.password})
                 this.signedInStatusChange() 
                 this.$router.push("{ name: 'galleries' }");
             }
             catch (e) {
-                console.log("AJOJ");
-                console.log(e.response);
-                console.log(e.response.data.message);
                 alert(e.response.data.message);
                 localStorage.removeItem('token')
                 return;
@@ -131,7 +125,6 @@ export default {
 
         checkForm (error) {
             this.errors.splice(0);
-            console.log(this.errors);
 
             if (!this.input.first_name) {
                 this.errors.push('First name is required.');

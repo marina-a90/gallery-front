@@ -44,7 +44,7 @@
                     name="imageURL"
                     type="url"
                     placeholder="Image URL"
-                    pattern="regex|http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png"
+                    pattern="https?://.+(png|jpg|jpeg)"
                     required
                     ><br>
 
@@ -86,7 +86,6 @@ export default {
     created() {
         this.$route.params.id && galleriesService.get(this.$route.params.id)
         .then((response) => {
-            console.log(response.data)
             this.gallery = response.data;
         })
     },
@@ -96,11 +95,8 @@ export default {
 
         async addGallery () {
             try {
-                console.log('tu sam')
+
                 await this.makeNewGallery(this.gallery);
-                console.log('tu sam')
-                console.log(this.gallery)
-                console.log(this.galleries)
                 this.$router.push("/my-galleries");
             }
             catch (e) {

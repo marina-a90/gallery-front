@@ -97,12 +97,7 @@ export default {
     async created() {
         try {
             const response = await galleriesService.show(this.id);
-            console.log(response.data);
             this.gallery = response.data;
-            console.log('get u id')
-            console.log(this.getUserID)
-            console.log('g u id')
-            console.log(this.gallery.user_id)
         } catch (error) {
             console.log(error);
         }
@@ -121,10 +116,8 @@ export default {
             try {
                 await this.makeNewComment(this.comment)
                 this.gallery.comments.unshift(this.comment)
-                console.log('dodajem komentar')
             }
             catch (e) {
-                console.log(e)
                 alert('Not able to create the comment.')
             }
         }, 
