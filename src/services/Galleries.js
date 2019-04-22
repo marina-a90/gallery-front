@@ -6,12 +6,7 @@ class GalleriesService {
     axios.defaults.baseURL = "http://localhost:8000/api/";
   }
 
-  // getAll() {
-  //   return axios.get("galleries");
-  // }
-
   getAll(page = 1, term = "") {
-    // return axios.get(`galleries?page=${page}&term=${term}`);
     return axios.get('galleries',
       {
         params: {

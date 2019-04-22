@@ -94,19 +94,27 @@ export default {
     methods: {
         ...mapActions(['makeNewGallery']),
 
-        addGallery () {
-            console.log('tu sam')
-            this.makeNewGallery(this.gallery);
-            console.log('tu sam')
-            console.log(this.gallery)
-            console.log(this.galleries)
-            this.$router.push("/my-galleries");
+        async addGallery () {
+            try {
+                console.log('tu sam')
+                await this.makeNewGallery(this.gallery);
+                console.log('tu sam')
+                console.log(this.gallery)
+                console.log(this.galleries)
+                this.$router.push("/my-galleries");
+            }
+            catch (e) {
+                alert(`Did not manage to create the gallery. Please check the input data and try again.`)
+            }
         }, 
 
-        addImage () {
-            this.gallery.images.push(this.image.imageURL);
-            console.log(this.image)
-            console.log(this.gallery)
+        async addImage () {
+            try {
+                await this.gallery.images.push(this.image.imageURL);
+            }
+            catch (e) {
+                alert(`Did not manage to create the image. Please check the extension and try again.`)
+            }
         }, 
 
         moveUp (index) {

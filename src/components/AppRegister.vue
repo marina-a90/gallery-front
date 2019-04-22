@@ -2,12 +2,12 @@
     <div class="container">
         <h1>Registration</h1>
 
-        <!-- <div v-if="errors.length" class="alert-danger mt-3">
+        <div v-if="errors.length" class="alert-danger mt-3">
             <b>Please correct the following error(s):</b>
             <ul>
                 <li v-for="(error, index) in errors" :key="error[index]">{{ error }}</li>
             </ul>
-        </div> -->
+        </div>
 
         <form @submit.prevent="registerHandle">
             <div class="mb-3">
@@ -108,11 +108,11 @@ export default {
         async registerHandle () {
             try {
                 await this.register(this.input)
-                // this.checkForm();
-                // if (this.errors.length) {
-                //     console.log('greske');
-                //     return;
-                // }
+                this.checkForm();
+                if (this.errors.length) {
+                    console.log('greske');
+                    return;
+                }
                 console.log('registered')
                 console.log('vue registered')
                 this.login({email: this.input.email, password: this.input.password})
@@ -121,11 +121,9 @@ export default {
             }
             catch (e) {
                 console.log("AJOJ");
-                // console.log(e.response);
-                // console.log(e.response.data.message);
-                // alert(e.response.data.message);
-                alert('ne')
-                // location.reload();
+                console.log(e.response);
+                console.log(e.response.data.message);
+                alert(e.response.data.message);
                 localStorage.removeItem('token')
                 return;
             }
@@ -147,13 +145,13 @@ export default {
             if (!this.input.password) {
                 this.errors.push('Password is required.');
             }
-            if (!this.input.password_confirm) {
+            if (!this.input.password_confirmation) {
                 this.errors.push('Password confirmation is required.');
             }
             if (!this.input.accepted_terms) {
                 this.errors.push('You need to accept the terms and conditions befor you proceed proceed.');
             }
-            if (this.input.password !== this.input.password_confirm) {
+            if (this.input.password !== this.input.password_confirmation) {
                 this.errors.push('Passwords need to match.');
             }
         }

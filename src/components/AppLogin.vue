@@ -50,9 +50,9 @@ export default {
                 this.$router.push('/galleries')
             } 
             catch (e) {
-                // const error = JSON.parse(e.request.response)
-                // this.error = error.error
-                // alert(this.error)
+                const error = JSON.parse(e.request.response)
+                this.error = error.error
+                alert(this.error)
                 console.log('login greska')
                 localStorage.removeItem('token')
                 // location.reload();

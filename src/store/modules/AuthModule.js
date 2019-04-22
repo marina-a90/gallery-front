@@ -10,6 +10,7 @@ export const AuthModule = {
         logout (context) {
             authService.logout()
             console.log('store logout')
+            alert('Successfully logged out!')
         },
 
         async register (context, credentials) {

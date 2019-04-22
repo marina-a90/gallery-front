@@ -2,12 +2,7 @@
     <div class="mb-3">
         <h1>Gallery</h1>
 
-        signed in: {{ isSignedInCheck }}, 
-
-        User id: {{ getUserID }}
-
-        <b-navbar toggleable="lg" type="dark" variant="info">
-
+        <b-navbar toggleable="lg" type="dark" variant="info" class="navbar-light bg-light">
             <b-navbar-brand class="navbar-brand">
                 <router-link :to="{ name: 'galleries' }">
                     All Galleries
@@ -38,7 +33,7 @@
                 </router-link>
             </b-navbar-brand>
 
-            <b-navbar-brand class="navbar-brand" @click="handleLogout" v-if="isSignedInCheck">
+            <b-navbar-brand class="navbar-brand router-link" @click="handleLogout" v-if="isSignedInCheck">
                 <a href="#">Logout</a>
             </b-navbar-brand>
         </b-navbar>
@@ -72,9 +67,8 @@ export default {
 
 <style scoped>
     h1 {
-        text-decoration: underline;
-        color: white;
-        background-color: rgb(23, 162, 184);
+        color: blue;
+        background-color: #f8f9fa !important;
         margin: auto;
         text-align: center;
     }

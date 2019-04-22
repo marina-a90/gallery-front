@@ -64,7 +64,7 @@ export default {
             console.log('search')
             this.page = 1
             this.searchInput = searchInput
-            galleriesService.getMyGalleries(this.id, this.page, this.searchInput)
+            galleriesService.getUserGalleries(this.id, this.page, this.searchInput)
                 .then(galleries => {
                     this.galleries = galleries.data
                     this.last_page = galleries.last_page
